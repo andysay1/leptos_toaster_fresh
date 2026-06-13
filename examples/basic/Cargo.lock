@@ -109,7 +109,7 @@ name = "basic-example"
 version = "0.0.0"
 dependencies = [
  "leptos",
- "leptos_toaster",
+ "leptos_toaster_fresh",
 ]
 
 [[package]]
@@ -777,7 +777,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "leptos_toaster"
+name = "leptos_toaster_fresh"
 version = "0.3.0"
 dependencies = [
  "cfg-if",

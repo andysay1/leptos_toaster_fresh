@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 leptos = { version = "0.8", features = ["csr"] }
-leptos_toaster = { path = "../..", features = ["builtin_toast"] }
+leptos_toaster = { package = "leptos_toaster_fresh", path = "../..", features = ["builtin_toast"] }

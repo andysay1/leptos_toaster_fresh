@@ -1,14 +1,17 @@
 [package]
-name = "leptos_toaster"
+name = "leptos_toaster_fresh"
 version = "0.3.0"
 edition = "2021"
-repository = "https://github.com/SorenHolstHansen/leptos_toaster"
+repository = "https://github.com/andysay1/leptos_toaster_fresh"
 license = "MIT"
 description = "A Toaster component for Leptos"
 keywords = ["leptos", "toaster", "toast"]
 authors = ["Søren H. Hansen"]
 
 exclude = [".github"]
+
+[lib]
+name = "leptos_toaster"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

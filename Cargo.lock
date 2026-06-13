@@ -792,7 +792,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "leptos_toaster"
+name = "leptos_toaster_fresh"
 version = "0.3.0"
 dependencies = [
  "cfg-if",
