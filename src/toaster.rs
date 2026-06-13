@@ -1,4 +1,5 @@
 use crate::{
+    class::merge_classes,
     mount_style::mount_style,
     toast_container::ToastContainer,
     types::{HeightT, Toasts},
@@ -20,12 +21,20 @@ pub fn Toaster(
     /// The maximum amount of toasts that should be visible at any point
     #[prop(default = 3)]
     visible_toasts: usize,
+    /// Additional classes for the toaster list element.
+    #[prop(optional, into)]
+    class: String,
+    /// Additional classes for each toast container element.
+    #[prop(optional, into)]
+    toast_container_class: String,
     #[prop(optional)] children: Option<Children>,
 ) -> impl IntoView {
     mount_style("toaster", include_str!("./style.css"));
     let (expanded, set_expanded) = signal(false);
     let interacting = RwSignal::new(false);
     let heights = RwSignal::<Vec<HeightT>>::new(Vec::new());
+    let toaster_class = RwSignal::new(merge_classes("leptos-toaster", &class));
+    let toast_container_class = RwSignal::new(toast_container_class);
     let context = use_context::<Toasts>().unwrap_or_else(provide_toasts);
     let (toasts, set_toasts) = (context.toasts, context.set_toasts);
 
@@ -64,7 +73,7 @@ pub fn Toaster(
         <Show when=move || !toasts.with(|t| t.is_empty())>
             <section aria-label="Notifications" tab-index=-1>
                 <ol
-                    class="leptos-toaster"
+                    class=move || toaster_class.get()
                     tab-index=-1
                     data-y-position=position.y()
                     data-x-position=position.x()
@@ -113,6 +122,7 @@ pub fn Toaster(
                                 <ToastContainer
                                     index=Signal::derive(move || index.get())
                                     toast
+                                    class=toast_container_class.get_untracked()
                                     visible_toasts
                                     position
                                     duration_from_toaster=duration

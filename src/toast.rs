@@ -1,4 +1,4 @@
-use crate::{mount_style::mount_style, types::dismiss_toast, ToastId};
+use crate::{class::merge_classes, mount_style::mount_style, types::dismiss_toast, ToastId};
 use leptos::{either::EitherOf5, prelude::*};
 
 #[component]
@@ -124,11 +124,31 @@ pub fn Toast(
     #[prop(default = Theme::Light)] theme: Theme,
     #[prop(default = false)] invert: bool,
     #[prop(default = false)] rich_colors: bool,
+    /// Additional classes for the toast root element.
+    #[prop(optional, into)]
+    class: String,
+    /// Additional classes for the close button.
+    #[prop(optional, into)]
+    close_button_class: String,
+    /// Additional classes for the variant icon wrapper.
+    #[prop(optional, into)]
+    icon_class: String,
+    /// Additional classes for the title element.
+    #[prop(optional, into)]
+    title_class: String,
+    /// Additional classes for the description element.
+    #[prop(optional, into)]
+    description_class: String,
+    /// Skips mounting the built-in toast stylesheet.
+    #[prop(default = false)]
+    unstyled: bool,
 ) -> impl IntoView {
-    mount_style(
-        "leptos-toaster-builtin_toast",
-        include_str!("./builtin_toast.css"),
-    );
+    if !unstyled {
+        mount_style(
+            "leptos-toaster-builtin_toast",
+            include_str!("./builtin_toast.css"),
+        );
+    }
 
     view! {
         <div
@@ -136,7 +156,7 @@ pub fn Toast(
             data-theme=theme.to_string()
             data-invert=invert.to_string()
             data-rich-colors=rich_colors.to_string()
-            class="leptos-toast"
+            class=merge_classes("leptos-toast", &class)
         >
             <Show when=move || close_button>
                 <button
@@ -144,7 +164,7 @@ pub fn Toast(
                         dismiss_toast(&toast_id);
                     }
 
-                    class="leptos-toast-close-button"
+                    class=merge_classes("leptos-toast-close-button", &close_button_class)
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +184,7 @@ pub fn Toast(
             </Show>
 
             <Show when=move || variant != ToastVariant::Normal>
-                <div class="leptos-toast-icon">
+                <div class=merge_classes("leptos-toast-icon", &icon_class)>
                     {match variant {
                         ToastVariant::Normal => EitherOf5::A(view! {}),
                         ToastVariant::Success => EitherOf5::B(view! { <SuccessIcon/> }),
@@ -177,8 +197,10 @@ pub fn Toast(
             </Show>
 
             <div>
-                <div class="leptos-toast-title">{title.run()}</div>
-                <div class="leptos-toast-description">{description.map(|v| v.run())}</div>
+                <div class=merge_classes("leptos-toast-title", &title_class)>{title.run()}</div>
+                <div class=merge_classes("leptos-toast-description", &description_class)>
+                    {description.map(|v| v.run())}
+                </div>
             </div>
         </div>
     }

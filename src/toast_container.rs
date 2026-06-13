@@ -1,4 +1,5 @@
 use crate::{
+    class::merge_classes,
     types::{decode_message, HeightT, Toast},
     ToastId, ToasterPosition,
 };
@@ -13,6 +14,7 @@ use web_sys::{HtmlElement, PointerEvent};
 pub fn ToastContainer(
     index: Signal<usize>,
     toast: Toast,
+    #[prop(optional, into)] class: String,
     duration_from_toaster: Duration,
     visible_toasts: usize,
     position: ToasterPosition,
@@ -204,7 +206,7 @@ pub fn ToastContainer(
             aria-atomic="true"
             role="status"
             tab-index=0
-            class="leptos-toast-container"
+            class=merge_classes("leptos-toast-container", &class)
             data-mounted=move || mounted.get().to_string()
             data-removed=move || removed.get().to_string()
             data-visible=move || is_visible().to_string()

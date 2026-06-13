@@ -44,10 +44,12 @@ fn Page() -> impl IntoView {
                 view! {
                     <Toast
                         toast_id
-                        variant=variant()
-                        theme=toast_theme()
-                        invert=invert()
-                        rich_colors=use_rich_colors()
+                        variant=variant.get()
+                        theme=toast_theme.get()
+                        invert=invert.get()
+                        rich_colors=use_rich_colors.get()
+                        class="border-slate-200 shadow-lg"
+                        close_button_class="hover:bg-slate-100"
                         title=move || view! { "Title" }
                         description=Some(ViewFn::from(move || view! { "Description" }))
                     />
@@ -56,8 +58,8 @@ fn Page() -> impl IntoView {
             Some(toast_id),
             Some(ToastOptions {
                 dismissible: true,
-                duration: Some(duration()),
-                position: Some(ToasterPosition::BottomLeft),
+                duration: Some(duration.get()),
+                position: Some(position.get()),
             }),
         );
     };

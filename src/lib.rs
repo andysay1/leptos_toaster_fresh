@@ -1,5 +1,6 @@
 #![deny(unused_crate_dependencies)]
 
+mod class;
 mod mount_style;
 #[cfg(feature = "builtin_toast")]
 mod toast;
