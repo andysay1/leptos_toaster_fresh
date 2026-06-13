@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-13
+
+### Added
+- Support Leptos 0.8.
+- Add Tailwind-friendly class props for `Toaster`, toast containers, and the built-in `Toast`.
+- Add `unstyled` mode for the built-in `Toast` so apps can fully style it with Tailwind.
+
+### Changed
+- Update the basic example to Leptos 0.8 and stable Rust.
+
 ## [0.1.7](https://github.com/SorenHolstHansen/leptos_toaster/compare/v0.1.6...v0.1.7) - 2024-05-20
 
 ### Other
