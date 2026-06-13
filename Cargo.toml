@@ -1,6 +1,6 @@
 [package]
 name = "leptos_toaster_fresh"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2021"
 repository = "https://github.com/andysay1/leptos_toaster_fresh"
 license = "MIT"
